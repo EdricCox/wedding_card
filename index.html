@@ -513,31 +513,62 @@
 			<div class="container">
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<h2>Xác Nhận Tham Dự Tiệc</h2>
-						<p>Bạn có thể điền vào form để cho Nhất &amp; Diệu biết rằng bạn có tham gia! Cám ơn mọi người
-							nhé!</p>
+						<h2>Lời chúc tốt đẹp</h2>
+						<p>Bạn có thể gửi cho Nhất &amp; Diệu những lời chúc ở dưới đây nhé!</p>
 					</div>
 				</div>
 				<div class="row animate-box">
 					<div class="col-md-10 col-md-offset-1">
 						<form id="form" class="form-inline">
 							<div class="col-md-4 col-sm-4">
-								<div class="form-group">
-									<label for="name" class="sr-only">Họ Và Tên</label>
-									<input type="name" class="form-control" id="name" placeholder="Họ Và Tên">
-								</div>
+
 							</div>
 							<div class="col-md-4 col-sm-4">
-								<div class="form-group">
-									<label for="email" class="sr-only">Email</label>
-									<input type="email" class="form-control" id="email" placeholder="Email">
-								</div>
-							</div>
-							<div class="col-md-4 col-sm-4">
-								<button type="submit" class="btn btn-default btn-block" id="submitBtn">Gửi cho Nhất
-									&amp; Diệu</button>
+
 							</div>
 						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="display-t">
+						<div class="display-tc">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="col-md-6 col-sm-6 text-center">
+									<div class="event-wrap animate-box form-content-left">
+										<div class="form-group">
+											<label for="name" class="sr-only">Nhập dữ liệu</label>
+											<input type="name" class="form-control" id="text"
+												placeholder="Nhập lời chúc ở đây nhé">
+										</div>
+										<div class="form-group">
+											<label for="name" class="sr-only">Nhập tên mình nhé</label>
+											<input type="name" class="form-control" id="name"
+												placeholder="Tên gì cũng được!">
+										</div>
+										<div class="event-col">
+											<button type="submit" class="btn btn-default btn-block" id="submitBtn">Gửi
+												cho Nhất
+												&amp; Diệu</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-6 text-center">
+									<div class="event-wrap animate-box form-content-right">
+										<div class="tbl-content">
+											<table cellpadding="0" cellspacing="0" border="0">
+												<tbody>
+													<tr>
+														<td></td>
+														<td></td>
+														<td></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -587,7 +618,7 @@
 	<div class="alert" id="alert-box"></div>
 	<div id="alert_music" class="alert_music">
 		Nếu không nghe thấy nhạc, hãy nhấn vào loa nhé!
-	  </div>
+	</div>
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -633,37 +664,101 @@
 		});
 	</script>
 	<script>
-		// Lấy tham chiếu đến các phần tử HTML
-		var form = document.getElementById("form");
-		var submitBtn = document.getElementById("submitBtn");
-
-		// Đăng ký sự kiện click cho nút gửi
-		submitBtn.addEventListener("click", function (event) {
-			event.preventDefault(); // Ngăn chặn hành vi mặc định của form
-
-			// Hiển thị cảnh báo đã gửi
-			var alertBox = document.createElement("div");
-			alertBox.classList.add("alert");
-			alertBox.innerHTML = `
-        <div class="alert-icon">
-            <i class="fa fa-check-circle"></i>
-        </div>
-        <div class="alert-message">
-            Đã gửi thành công!
-        </div>
-    `;
-			document.body.appendChild(alertBox);
-
-			// Xóa cảnh báo sau 3 giây
-			setTimeout(function () {
-				alertBox.remove();
-			}, 3000);
-
-			// Reset form
-			form.reset();
+		document.addEventListener('DOMContentLoaded', function () {
+			var submitBtn = document.getElementById('submitBtn');
+	
+			submitBtn.addEventListener('click', function (event) {
+				event.preventDefault();
+	
+				var textInput = document.getElementById('text');
+				var nameInput = document.getElementById('name');
+	
+				var text = textInput.value;
+				var name = nameInput.value;
+				if (text !== '' && name !== '') {
+					addToTable(text, name);
+					saveToLocalStorage(text, name);
+					textInput.value = '';
+					nameInput.value = '';
+				} else {
+					// Handle the error case here if needed
+				}
+			});
+	
+			function addToTable(text, name) {
+				var tableBody = document.querySelector('.tbl-content tbody');
+				var newRow = document.createElement('tr');
+	
+				var textCell = document.createElement('td');
+				textCell.textContent = text;
+	
+				var nameCell = document.createElement('td');
+				nameCell.textContent = name;
+	
+				var deleteCell = document.createElement('td');
+				var deleteButton = document.createElement('button');
+				deleteButton.innerHTML = '<i class="fa fa-remove"></i>';
+				deleteButton.style.backgroundColor = 'red';
+				deleteButton.style.color = 'white';
+				deleteButton.style.border = 'none';
+				deleteButton.style.borderRadius = '5px';
+				deleteButton.style.cursor = 'pointer';
+				deleteButton.addEventListener('click', function () {
+					deleteRow(newRow);
+					removeFromLocalStorage(text, name);
+				});
+				deleteCell.appendChild(deleteButton);
+	
+				newRow.appendChild(textCell);
+				newRow.appendChild(nameCell);
+				newRow.appendChild(deleteCell);
+	
+				tableBody.appendChild(newRow);
+			}
+	
+			function deleteRow(row) {
+				var tableBody = row.parentNode;
+				tableBody.removeChild(row);
+			}
+	
+			function saveToLocalStorage(text, name) {
+				var data = {
+					text: text,
+					name: name
+				};
+	
+				var existingData = localStorage.getItem('greetings');
+				var greetings = existingData ? JSON.parse(existingData) : [];
+				greetings.push(data);
+	
+				localStorage.setItem('greetings', JSON.stringify(greetings));
+			}
+	
+			function removeFromLocalStorage(text, name) {
+				var existingData = localStorage.getItem('greetings');
+				var greetings = existingData ? JSON.parse(existingData) : [];
+	
+				greetings = greetings.filter(function (item) {
+					return item.text !== text || item.name !== name;
+				});
+	
+				localStorage.setItem('greetings', JSON.stringify(greetings));
+			}
+	
+			function loadFromLocalStorage() {
+				var existingData = localStorage.getItem('greetings');
+				var greetings = existingData ? JSON.parse(existingData) : [];
+	
+				greetings.forEach(function (item) {
+					addToTable(item.text, item.name);
+				});
+			}
+	
+			loadFromLocalStorage();
 		});
-
 	</script>
+	
+
 	<script>
 		//<![CDATA[
 		var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -808,17 +903,17 @@
 
 	</script>
 	<script>
-    // Lấy thẻ div cảnh báo theo id
-    var alertDiv = document.getElementById('alert_music');
+		// Lấy thẻ div cảnh báo theo id
+		var alertDiv = document.getElementById('alert_music');
 
-    // Hiển thị cảnh báo
-    alertDiv.style.display = 'block';
-	alertDiv.style.opacity = '1';
+		// Hiển thị cảnh báo
+		alertDiv.style.display = 'block';
+		alertDiv.style.opacity = '1';
 
-    // Đặt hàm để ẩn cảnh báo sau 3 giây
-    setTimeout(function() {
-      alertDiv.style.display = 'none';
-    }, 4000);
+		// Đặt hàm để ẩn cảnh báo sau 3 giây
+		setTimeout(function () {
+			alertDiv.style.display = 'none';
+		}, 4000);
 	</script>
 </body>
 

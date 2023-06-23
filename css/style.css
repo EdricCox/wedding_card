@@ -1442,7 +1442,9 @@ form label {
 #fh5co-started .fh5co-heading h2 {
   margin-bottom: 0;
 }
-
+.fh5co-heading h2 {
+  font-family: 'Alex Brush', cursive;
+}
 @media screen and (max-width: 768px) {
   #fh5co-footer .copyright .pull-left,
   #fh5co-footer .copyright .pull-right {
@@ -2206,63 +2208,6 @@ h5.card-title.text-white {
   font-style: italic;
   font-size: 10px;
 }
-#inputBox {
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-.delete-button {
-  background-color: #ff0000;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  padding: 5px 20px;
-  cursor: pointer;
-  margin-left: 2rem;
-}
-.delete-button:hover {
-  background-color: #cc0000;
-}
-.table_input {
-  width: 100%;
-  overflow-y: auto; /* Cho phép cuộn ngang khi bảng quá rộng */
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  word-wrap: break-word; /* Sử dụng thuộc tính word-wrap hoặc overflow-wrap */
-  white-space: normal;
-  overflow-y: auto; 
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-/* CSS cho phần responsive */
-@media screen and (max-width: 600px) {
-  table {
-    width: 100%;
-  }
-  
-  th, td {
-    display: block;
-  }
-  
-  th {
-    text-align: left;
-  }
-  
-  td {
-    border-bottom: none;
-  }
-}
 .alert {
   z-index: 100;
   display: none;
@@ -2279,17 +2224,6 @@ th {
   padding: 20px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.alert-icon {
-  font-size: 50px;
-  color: #28a745;
-  margin-bottom: 20px;
-}
-
-.alert-message {
-  font-size: 20px;
-  color: #333333;
 }
 
 .speed-dial {
@@ -2326,4 +2260,117 @@ th {
   display: none;
   position: fixed;
   transition: opacity 0.3s ease-in-out;
+}
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+  width: 6px;
+} 
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.2);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.267);
+  border-radius: 10px;
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: center;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+:root {
+  --primary: #0676ed;
+  --background: #222b45;
+  --warning: #f2a600;
+  --success: #12c99b;
+  --error: #e41749;
+  --dark: #151a30;
+}
+.alert-form {
+  min-height: 67px;
+  width: 560px;
+  max-width: 90%;
+  border-radius: 12px;
+  padding: 16px 22px 17px 20px;
+  display: flex;
+  align-items: center;
+}
+.alert-warning {
+  background: var(--warning);
+}
+.alert-success {
+  background: var(--success);
+}
+.alert-primary {
+  background: var(--primary);
+}
+.alert-dark {
+  background: var(--dark);
+}
+.alert-error {
+  background: var(--error);
+}
+.alert-form .icon__wrapper {
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.253);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-form .icon__wrapper span {
+  font-size: 21px;
+  color: #fff;
+}
+.alert-form p {
+  color: #fff;
+  font-family: Verdana;
+  margin-left: 10px;
+}
+.alert-form p a,
+.alert-form p a:visited,
+.alert-form p a:active {
+  color: #fff;
+}
+.alert-form .open {
+  margin-left: auto;
+  margin-right: 5px;
+}
+.alert-form .close, .alert-form .open {
+  color: #fff;
+  transition: transform 0.5s;
+  font-size: 18px;
+  cursor: pointer;
+}
+.alert-form .close:hover, .alert-form .open:hover {
+  transform: scale(1.3);
 }
